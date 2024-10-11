@@ -49,7 +49,11 @@ class Metadata:
                 if not callable(attr) and not str(attr).startswith('__') and not str(attr).startswith('_'):
                     self._structures.append(attr)
 
+            pprint(self._structures)
 
+        else:
+            raise Exception('File extension not supported')
+    
 
     def read_pptx_metadata(self):
         """Reads metadata from a pptx file"""
