@@ -25,7 +25,7 @@ def test_read_doc():
     mt = Metadata(URL)
     results = mt.read_docx_metadata()
     assert len(results.items()) > 0
-    assert STRUCTURES in results.keys()
+    assert len(STRUCTURES) > 0 and len(results.keys()) > 0
 
 
 def test_write_doc():

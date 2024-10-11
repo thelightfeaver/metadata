@@ -19,12 +19,12 @@ class Metadata:
     def get_data(self): 
         doc = Document(self._filename)
         for attr in dir(doc.core_properties):
-            if not callable(attr) and( not str(attr).startswith('__') and not str(attr).endswith('_')):
+            if not callable(attr) and not str(attr).startswith('__') and not str(attr).startswith('_'):
                 self._structures.append(attr)
 
     def write_docx_metadata(self, data):
         doc = Document(self._filename)
-        for attr in self._structures:
+        for attr in data:
             setattr(doc.core_properties, attr, data[attr])
         doc.save(self._filename)
         
