@@ -35,11 +35,50 @@ def test_write_doc():
     data = {"title": "algo", "author": "author"}
 
     mt.write_docx_metadata(data)
-
     results = mt.read_docx_metadata()
 
     assert results["title"] == "algo"
-
     assert results["author"] == "author"
+    assert len(results.items()) > 0
 
+def test_read_ppt():
+    URL = "src/data/file.pptx"
+
+    mt = Metadata(URL)
+    results = mt.read_pptx_metadata()
+    assert len(results.items()) > 0
+
+def test_write_ppt():
+
+    URL = "src/data/file.pptx"
+    mt = Metadata(URL)
+
+    data = {"title": "algo", "author": "author"}
+
+    mt.write_pptx_metadata(data)
+    results = mt.read_pptx_metadata()
+
+    assert results["title"] == "algo"
+    assert results["author"] == "author"
+    assert len(results.items()) > 0
+
+def test_read_xlsx():
+    URL = "src/data/file.xlsx"
+
+    mt = Metadata(URL)
+    results = mt.read_xlsx_metadata()
+    assert len(results.items()) > 0
+
+def test_write_xlsx():
+
+    URL = "src/data/file.xlsx"
+    mt = Metadata(URL)
+
+    data = {"title": "algo", "author": "author"}
+
+    mt.write_xlsx_metadata(data)
+    results = mt.read_xlsx_metadata()
+
+    assert results["title"] == "algo"
+    assert results["author"] == "author"
     assert len(results.items()) > 0
