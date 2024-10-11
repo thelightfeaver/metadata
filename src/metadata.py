@@ -34,21 +34,6 @@ class Metadata:
         self._structures = list()
         self._get_data()
 
-    def read_docx_metadata(self):
-        """Reads metadata from a docx file"""
-        doc = Document(self._filename)
-        mt = dict()
-        for attr in self._structures:
-            mt[attr] = getattr(doc.core_properties, attr)
-        return mt
-
-    def write_docx_metadata(self, data):
-        """Writes metadata to a docx file"""
-        doc = Document(self._filename)
-        for attr in data:
-            setattr(doc.core_properties, attr, data[attr])
-        doc.save(self._filename)
-
     def _get_data(self):
         """Get the structures of the metadata"""
 
@@ -85,6 +70,42 @@ class Metadata:
         else:
             raise Exception("File extension not supported")
 
+    def read_docx_metadata(self):
+        """Reads metadata from a docx file"""
+        doc = Document(self._filename)
+        mt = dict()
+        for attr in self._structures:
+            mt[attr] = getattr(doc.core_properties, attr)
+        return mt
+
+    def write_docx_metadata(self, data):
+        """
+        Writes metadata to a docx file.
+
+        Args:
+            data (dict): A dictionary containing metadata attributes and values to be written to the file.
+                         Possible keys include:
+                         - 'author'
+                         - 'category'
+                         - 'comments'
+                         - 'content_status'
+                         - 'created'
+                         - 'identifier'
+                         - 'keywords'
+                         - 'language'
+                         - 'last_modified_by'
+                         - 'last_printed'
+                         - 'modified'
+                         - 'revision'
+                         - 'subject'
+                         - 'title'
+                         - 'version'
+        """
+        doc = Document(self._filename)
+        for attr in data:
+            setattr(doc.core_properties, attr, data[attr])
+        doc.save(self._filename)
+
     def read_pptx_metadata(self):
         """Reads metadata from a pptx file"""
         ppt = Presentation(self._filename)
@@ -94,7 +115,28 @@ class Metadata:
         return mt
 
     def write_pptx_metadata(self, data):
-        """Writes metadata to a pptx file"""
+        """
+        Writes metadata to a pptx file.
+
+        Args:
+            data (dict): A dictionary containing metadata attributes and values to be written to the file.
+                         Possible keys include:
+                         - 'author'
+                         - 'category'
+                         - 'comments'
+                         - 'content_status'
+                         - 'created'
+                         - 'identifier'
+                         - 'keywords'
+                         - 'language'
+                         - 'last_modified_by'
+                         - 'last_printed'
+                         - 'modified'
+                         - 'revision'
+                         - 'subject'
+                         - 'title'
+                         - 'version'
+        """
         ppt = Presentation(self._filename)
         for attr in data:
             setattr(ppt.core_properties, attr, data[attr])
@@ -109,14 +151,29 @@ class Metadata:
         return mt
 
     def write_xlsx_metadata(self, data):
-        """Writes metadata to a xlsx file"""
+        """
+        Writes metadata to a xlsx file.
+
+        Args:
+            data (dict): A dictionary containing metadata attributes and values to be written to the file.
+                         Possible keys include:
+                         - 'category'
+                         - 'contentStatus'
+                         - 'created'
+                         - 'creator'
+                         - 'description'
+                         - 'identifier'
+                         - 'keywords'
+                         - 'language'
+                         - 'lastModifiedBy'
+                         - 'lastPrinted'
+                         - 'modified'
+                         - 'revision'
+                         - 'subject'
+                         - 'title'
+                         - 'version'
+        """
         wb = load_workbook(self._filename)
         for attr in data:
             setattr(wb.properties, attr, data[attr])
         wb.save(self._filename)
-
-
-if __name__ == "__main__":
-    metadata = Metadata("src/data/file.docx")
-    pprint(metadata.read_docx_metadata())
-    metadata.write_docx_metadata({"title": "algo", "author": "author"})
