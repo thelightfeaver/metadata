@@ -74,12 +74,12 @@ def test_write_xlsx():
     URL = "src/data/file.xlsx"
     mt = Metadata(URL)
 
-    data = {"title": "algo", "language": "author", "namespace": "algo"}
+    data = {"title": "algo", "language": "author", "keywords": "algo"}
 
     mt.write_xlsx_metadata(data)
     results = mt.read_xlsx_metadata()
 
-    assert results["title"] == "algo"
-    assert results["language"] == "author"
-    assert results["namespace"] == "algo"
+    assert results["title"] == data["title"]
+    assert results["language"] == data["language"]
+    assert results["keywords"] == data["keywords"]
     assert len(results.items()) > 0
